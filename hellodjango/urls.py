@@ -19,5 +19,5 @@ from django.contrib import admin
 # TODO serve default url.
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^pools/', include("polls.urls"))
+    url(r'^polls/', include("polls.urls"))
 ]
