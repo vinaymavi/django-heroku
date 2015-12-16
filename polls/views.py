@@ -2,28 +2,26 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+from django.views import generic
+
 from .models import Question
 from .models import Choice
 
-# Create your views here.
-def index(request):
-    question_list = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template("polls/index.html")
-    context = RequestContext(request, {'question_list': question_list})
-    return HttpResponse(template.render(context))
+
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    def get_queryset(self):
+        return Question.objects.order_by('-pub_date')[:5]
 
 
-def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist, e:
-        raise Http404("Question does not exist.")
-    return render(request, 'polls/detail.html', {"question": question})
+class DetailView(generic.DetailView):
+    template_name = "polls/detail.html"
+    model = Question
 
 
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/results.html', {'question': question})
+class ResultView(generic.DetailView):
+    template_name = "polls/results.html"
+    model = Question
 
 
 def vote(request, question_id):
