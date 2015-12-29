@@ -18,7 +18,7 @@ class Grade(models.Model):
 
 
 class FunctionArea(models.Model):
-    text = models.CharField(max_length=10, unique=True)
+    text = models.CharField(max_length=100, unique=True)
     add_date = models.DateField('add_date', )
 
     def __str__(self):
