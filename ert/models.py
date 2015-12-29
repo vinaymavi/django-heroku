@@ -55,7 +55,7 @@ class Trigger(models.Model):
         return self.text
 
 
-class TraningCategory(models.Model):
+class TrainingCategory(models.Model):
     text = models.CharField(max_length=200)
     add_date = models.DateField('add_date')
 
@@ -90,7 +90,7 @@ class ImpactOnWork(models.Model):
 class LearningPlan(models.Model):
     text = models.CharField(max_length=1000)
     trigger = models.ForeignKey(Trigger, on_delete=models.CASCADE)
-    training_cat = models.ForeignKey(TraningCategory, on_delete=models.CASCADE)
+    training_cat = models.ForeignKey(TrainingCategory, on_delete=models.CASCADE)
     need_cat = models.ForeignKey(NeedCategory, on_delete=models.CASCADE)
     mode_of_learn = models.ForeignKey(ModeOfLearning, on_delete=models.CASCADE)
     impact_on_work = models.ForeignKey(ImpactOnWork, on_delete=models.CASCADE)
