@@ -8,14 +8,14 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from .models import Question
 from .models import Choice
+import logging
 
+logger = logging.getLogger(__name__)
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
-
+    print "Index page loading.."
     def get_queryset(self):
-        content_type = ContentType.objects.get_for_model(Question)
-        # permission = Permission.objects.create(codename='list_polls', name="can list polls", content_type=content_type)
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
